@@ -219,7 +219,7 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
             'Authorization' => 'Bearer ' . $transfer_token,
         ],
     ];
-    $response = wp_remote_post( 'http://' . $domain . '/wp-json/dt-campaign/v1/contact/import?email=' . urlencode( $email ), $args );
+    $response = wp_remote_post( 'https://' . $domain . '/wp-json/dt-campaign/v1/contact/import?email=' . urlencode( $email ), $args );
     if ( !is_wp_error( $response ) ){
         $result = json_decode( wp_remote_retrieve_body( $response ), true );
         if ( !empty( $result['contact_id'] ) ){
