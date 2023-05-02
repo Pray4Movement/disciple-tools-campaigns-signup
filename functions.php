@@ -209,6 +209,7 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
         'instance_links' => $blog->siteurl,
         'dt_prayer_site' => $meta['dt_prayer_site'],
         'dt_reason_for_subsite' => $meta['dt_reason_for_subsite'],
+        'source' => 'p4m_campaign_create',
         'tags' => $dt_tags,
         'steps_taken' => $steps_takes,
     ];
