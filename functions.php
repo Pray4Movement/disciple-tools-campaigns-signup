@@ -100,7 +100,7 @@ add_action( 'signup_blogform', function ( $errors ){
     <p>
         <label for="dt_newsletter">
             <input id="dt_newsletter" type="checkbox" name="dt_newsletter" checked>
-            <strong>Sign me up for Pray4Movement news.</strong>
+            <strong>Sign up for Pray4movement news and opportunities, and occasional communication from GospelAmbition.org</strong>
         </label>
         <label for="p4m_agreement">
             <input id="p4m_agreement" type="checkbox" name="p4m_agreement" required>
