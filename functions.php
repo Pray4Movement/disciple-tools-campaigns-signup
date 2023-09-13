@@ -361,3 +361,9 @@ add_action( 'get_footer', function ( $name, $args ){
         <?php
     }
 }, 10, 2 );
+
+add_filter( 'update_welcome_email', function( $welcome_email, $blog_id, $user_id, $password, $title, $meta ) : string {
+    $welcome_email .= "\r\nTo get started please check out the prayer campaigns documentation: https://pray4movement.org/docs/overview/ \r\n";
+
+    return $welcome_email;
+}, 10, 6 );
