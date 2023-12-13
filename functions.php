@@ -162,6 +162,9 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
     $blog_id = $new_site->blog_id;
     $user_id = $args['user_id'];
     $meta = $args['options'];
+    if ( isset( $meta['porch_type'] ) ){
+        update_blog_option( $blog_id, 'p4m_porch_type_to_set_up', $meta['porch_type'] );
+    }
 
     $dt_tags = [ 'values' => [ [ 'value' => 'add_to_mailing_list_27' ] ] ]; //P4M Campaign Creator
     $steps_takes = [ 'values' => [ [ 'value' => 'P4M Campaign Creator' ] ] ];
@@ -228,9 +231,7 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
         }
     }
 
-    if ( isset( $meta['porch_type'] ) ){
-        update_blog_option( $blog_id, 'p4m_porch_type_to_set_up', $meta['porch_type'] );
-    }
+
     return;
 
 }, 10, 2 );
