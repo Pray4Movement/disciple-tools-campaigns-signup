@@ -174,6 +174,7 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
     }
     if ( isset( $meta['porch_type'] ) && $meta['porch_type'] === 'ramadan-porch' ){
         $dt_tags['values'][] = [ 'value' => 'add_to_mailing_list_28' ]; // Ramadan 2024
+        $dt_tags['values'][] = [ 'value' => 'Ramadan ' . gmdate( 'Y' ) . ' Champion' ]; // Ramadan 2024
     }
 
     $token = get_option( 'crm_link_token' );
