@@ -16,7 +16,6 @@ function dt_get_bad_words() {
         'allah',
         'alligatorbait',
         'amateur',
-        'american',
         'anal',
         'analannie',
         'analsex',
