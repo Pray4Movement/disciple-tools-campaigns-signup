@@ -65,7 +65,7 @@ add_action( 'signup_blogform', function ( $errors ){
     </label>
     <input type="text" id="dt_reason_for_subsite" name="dt_reason_for_subsite">
     <p>
-        <label>Choose a <a target="_blank" href="https://pray4movement.org/docs/campaign-types/">Campaign Type</a>:</label>
+        <label>Choose a <a target="_blank" href="https://prayer.tools/docs/campaign-types/">Campaign Type</a>:</label>
             <?php
             $wizard_types = apply_filters( 'dt_campaigns_wizard_types', [] );
             if ( empty( $wizard_types ) ){
@@ -318,7 +318,7 @@ add_action( 'after_signup_form', function() : void {
 
 
 add_filter( 'update_welcome_email', function( $welcome_email, $blog_id, $user_id, $password, $title, $meta ) : string {
-    $welcome_email .= "\r\nTo get started please check out the prayer campaigns documentation: https://pray4movement.org/docs/overview/ \r\n";
+    $welcome_email .= "\r\nTo get started please check out the prayer campaigns documentation: https://prayer.tools/docs/overview/ \r\n";
 
     return $welcome_email;
 }, 10, 6 );
