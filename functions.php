@@ -100,17 +100,17 @@ add_action( 'signup_blogform', function ( $errors ){
     <p>
         <label for="dt_newsletter">
             <input id="dt_newsletter" type="checkbox" name="dt_newsletter" checked>
-            <strong>Sign up for Pray4movement news and opportunities, and occasional communication from GospelAmbition.org</strong>
+            <strong>Sign up for Prayer.Tools news and opportunities, and occasional communication from GospelAmbition.org</strong>
         </label>
         <label for="p4m_agreement">
             <input id="p4m_agreement" type="checkbox" name="p4m_agreement" required>
             <span>
-                I agree to use this prayer campaign tool in accordance with the <a href="https://pray4movement.org/about/" target="_blank">vision and intent</a> of Pray4Movement to mobilize extraordinary prayer for a specific people or place.
+                I agree to use this prayer campaign tool in accordance with the <a href="https://prayer.tools/about/" target="_blank">vision and intent</a> of Prayer.Tools to mobilize extraordinary prayer for a specific people or place.
             </span>
         </label>
         <label for="p4m_list_agreement">
             <input id="p4m_list_agreement" type="checkbox" name="p4m_list_agreement" required>
-                I agree that my prayer campaign can be listed on Pray4Movements.org
+                I agree that my prayer campaign can be listed on Prayer.Tools
         </label>
     </p>
 
@@ -275,7 +275,7 @@ add_action( 'before_signup_form', function() : void {
 
     $needle = 'campaigns.';
 
-    if ( stripos( $domain, $needle ) === 0 && strpos( $domain, 'pray4movement.org' ) !== false ){
+    if ( stripos( $domain, $needle ) === 0 && strpos( $domain, 'prayer.tools' ) !== false ){
         //phpcs:ignore
         $domain = substr( $domain, strlen( $needle ) );
     }
