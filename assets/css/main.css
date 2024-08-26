@@ -40,7 +40,7 @@ html {
 body {
     margin: 0;
     font-size: 1.6rem;
-    font-family: var(--font-serif);
+    /*font-family: var(--font-serif);*/
     line-height: 1.5;
 
     color: var(--grey);
@@ -50,21 +50,21 @@ body {
     min-height: 100vh;
 }
 
-h1 {
-    font-size: 4.8rem;
-    font-weight: bold;
-    color: var(--dark-grey);
-    font-family: var(--font-sans);
-    margin-bottom: 4rem;
-}
+/*h1 {*/
+/*    font-size: 4.8rem;*/
+/*    font-weight: bold;*/
+/*    color: var(--dark-grey);*/
+/*    font-family: var(--font-sans);*/
+/*    margin-bottom: 4rem;*/
+/*}*/
 
-h2 {
-    font-size: 3.2rem;
-    font-weight: 600;
-    color: var(--dark-grey);
-    font-family: var(--font-sans);
-    margin-bottom: 3rem;
-}
+/*h2 {*/
+/*    font-size: 3.2rem;*/
+/*    font-weight: 600;*/
+/*    color: var(--dark-grey);*/
+/*    font-family: var(--font-sans);*/
+/*    margin-bottom: 3rem;*/
+/*}*/
 
 p {
     margin: 3rem 0;
@@ -91,6 +91,11 @@ button {
 /* Composition */
 
 .container {
+    max-width: var(--lg);
+    width: 80%;
+    margin: 0 auto;
+}
+.header .container {
     max-width: var(--lg);
     width: 80%;
     margin: 0 auto;
@@ -235,10 +240,6 @@ button {
 @media (max-width: 700px ) {
     html {
         font-size: 10px;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        text-align: center;
     }
 
     h1 {
