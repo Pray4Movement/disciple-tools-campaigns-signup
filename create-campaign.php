@@ -8,6 +8,21 @@ wp_enqueue_style( 'tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/
 
 get_header();
 
+$languages = [
+    [ 'lang' => 'en_US', 'value' => 'English' ],
+    [ 'lang' => 'it_IT', 'value' => 'Italian' ],
+    [ 'lang' => 'es_ES', 'value' => 'Spanish' ],
+    [ 'lang' => 'pt_BR', 'value' => 'Portuguese' ],
+    [ 'lang' => 'fr_FR', 'value' => 'French' ],
+    [ 'lang' => 'ar', 'value' => 'Arabic' ],
+    [ 'lang' => 'te', 'value' => 'Telugu' ],
+    [ 'lang' => 'hi_IN', 'value' => 'Hindi' ],
+    [ 'lang' => 'kn', 'value' => 'Kannada' ],
+    [ 'lang' => 'ta', 'value' => 'Tamil' ],
+    [ 'lang' => 'ur', 'value' => 'Urdu' ],
+    [ 'lang' => 'zh_Hans', 'value' => 'Chinese' ],
+]
+
 
 
 ?>
@@ -72,6 +87,11 @@ get_header();
     }
     input:focus {
         border-color: #2563eb;
+    }
+    input[type='checkbox'], input[type='radio'] {
+        width: 1rem;
+        height: 1rem;
+        margin-right: 1rem;
     }
 </style>
 <div id="app" class="w-auto bg-gray-50 max-w-5xl m-1 mb-20 md:mx-auto p-3 md:p-7 rounded-md shadow-md text-lg">
@@ -163,6 +183,9 @@ get_header();
                     <span class="error">Subdomain must be at least 4 characters and cannot contain spaces</span>
                 </label>
             </div>
+            <div class="help-text" style="color:red" v-if="ramadan">
+                Please make sure that the start and end dates match when Ramadan will start and end in your target region(s). Your country might have different dates.
+            </div>
             <div class="flex gap-20">
                 <!--Start Date-->
                 <div class="relative pb-7">
@@ -185,6 +208,37 @@ get_header();
             <label class="text-gray-700 tracking-wide">
                 <input v-model="pt_listing" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree that my prayer campaign can be listed on Prayer.Tools<span style="color:red"> *</span><br>
             </label>
+
+            <div v-if="ramadan">
+                <h3 class="text-3xl font-bold my-7">
+                    Ramadan
+                </h3>
+                <h4 class="text-lg font-bold">Prayer Fuel</h4>
+                <p>
+                    Each campaign needs prayer fuel for the users to use to pray every day. Ramadan prayer fuel is provided in 11 languages. We intend for you to improve and customize this prayer fuel, but it can be used as it is. Let us know which option you plan on choosing:
+                </p>
+                <div class="my-4">
+                    <label class="m-0">
+                        <input type="radio" v-model="prayer_fuel" name="prayer_fuel" value="starter" required>I will use the default prayer fuel
+                    </label>
+                    <label class="m-0">
+                        <input type="radio" v-model="prayer_fuel" name="prayer_fuel" value="customize">I will use the default prayer fuel and customize it
+                    </label>
+                    <label class="m-0">
+                        <input type="radio" v-model="prayer_fuel" name="prayer_fuel" value="custom">I plan on creating my own prayer fuel
+                    </label>
+                </div>
+
+                <h4 class="text-lg font-bold">Languages</h4>
+                <p>
+                    Select which of the installed languages you would like to use for your campaign. You can select multiple languages.
+                </p>
+                <div class="my-4">
+                    <label class="m-0" v-for="language in languages" :key="language.code">
+                        <input type="checkbox" v-model="language.selected" name="prayer_fuel" :value="language.code" :id="language.code">{{language.value}}
+                    </label>
+                </div>
+            </div>
 
             <div>
                 <span class="error" style="display: block">{{submit_error}}</span>
@@ -220,7 +274,13 @@ get_footer();
   const js_data = <?php echo json_encode( [ //phpcs:ignore
       'rest' => rest_url(),
       'nonce' => wp_create_nonce( 'wp_rest' ),
+      'ramadan_start' => dt_get_next_ramadan_start_date(),
+      'ramadan_end' => dt_get_next_ramadan_end_date(),
+      'languages' => $languages
   ] ); ?>;
+
+  const query_params = new URLSearchParams(window.location.search)
+  let ramadan = query_params.get('ramadan') !== null
 
   const { createApp, ref } = Vue
 
@@ -229,6 +289,12 @@ get_footer();
       const message = ref('Hello vue!')
       const showhelp = ref({})
       const view = ref('create')
+      let start_date = ref('')
+      let end_date = ref('')
+      if ( ramadan ){
+        start_date = js_data.ramadan_start
+        end_date = js_data.ramadan_end
+      }
       return {
         message,
         email: ref(''),
@@ -236,8 +302,8 @@ get_footer();
         network: ref(''),
         campaign_name: ref(''),
         campaign_url: ref(''),
-        start_date: ref(''),
-        end_date: ref(''),
+        start_date,
+        end_date,
         newsletter: ref(true),
         location: ref(''),
         pt_agreement: ref(false),
@@ -245,6 +311,9 @@ get_footer();
         showhelp,
         submit_error: ref(''),
         view,
+        ramadan: ref(ramadan),
+        prayer_fuel: ref(''),
+        languages: ref(js_data.languages),
       }
     },
     computed: {
@@ -276,6 +345,11 @@ get_footer();
         this.submit_error = 'Campaign end date must be after the campaign start date'
         return
       }
+      const languages = this.languages.map(l=>l.selected ? l.lang : null).filter(l=>l!==null);
+      if ( this.ramadan && languages.length === 0 ) {
+        this.submit_error = 'Please select at least one language for your campaign and prayer fuel'
+        return
+      }
 
       let data = {
         email: this.email,
@@ -289,7 +363,9 @@ get_footer();
         newsletter: this.newsletter,
         location: this.location,
         pt_agreement: this.pt_agreement,
-        pt_listing: this.pt_listing
+        pt_listing: this.pt_listing,
+        prayer_fuel: this.prayer_fuel,
+        languages
       }
       fetch(js_data.rest + 'dt-campaigns/v1/create_campaign', {
         method: 'POST',
@@ -304,9 +380,7 @@ get_footer();
         this.view = 'success'
       })
       .catch((error) => {
-        console.log(error);
         error.json().then(r=>{
-          console.log(r);
             this.submit_error = r.message;
         })
         console.error('Error:', error)

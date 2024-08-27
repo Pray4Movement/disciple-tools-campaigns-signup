@@ -353,26 +353,13 @@ function create_campaign( WP_REST_Request $request ){
         'start_date' => $start_date,
         'end_date' => $end_date,
         'newsletter' => $params['newsletter'] ?? false,
+        'languages' => $params['languages'] ?? [ 'en_US' ],
+        'prayer_fuel' => $params['prayer_fuel'] ?? '',
     ];
 
     //user exists?
     $user = get_user_by( 'email', $email );
     $user_id = $user->ID ?? null;
-
-//    if ( empty( $user ) ){
-//        //create user
-//        $user_id = wp_create_user( $email, wp_generate_password(), $email );
-//    }
-
-    $user_result = wpmu_validate_user_signup( $email, $email );
-    $user_name   = $user_result['user_name'];
-    $user_email  = $user_result['user_email'];
-    $user_errors = $user_result['errors'];
-
-    if ( $user_errors->has_errors() ) {
-//        signup_user( $user_name, $user_email, $user_errors );
-//        return false;
-    }
 
     $result     = wpmu_validate_blog_signup( $campaign_url, $campaign_name );
     $domain     = $result['domain'];
@@ -388,7 +375,30 @@ function create_campaign( WP_REST_Request $request ){
         return new WP_Error( 'blog_error', $errors->get_error_message(), [ 'status' => 400 ] );
     }
 
-    //@todo create subsite without activating if user already existis
+
+    /**
+     * If they are a user in the system
+     * create the new site
+     * email them the confirmation
+     *
+     */
+    if ( !empty( $user ) ){
+        wpmu_create_blog( $domain, $path, $campaign_name, $user_id, $meta );
+        $url = 'https://' . $domain . $path;
+        $html = '
+Hi ' . ( $name ?: $email ) . ',
+
+<p>Thank you for creating another campaign with Prayer.Tools. Your new campaign is called <strong>' . $campaign_name . '</strong> and can be accessed at <a href="'. $url . '">' . $url . '</a>.</p>
+
+<p>We are excited to see how God uses this new campaign to mobilize extraordinary prayer for a specific people or place.</p>
+<br>
+Blessings,<br>
+The Prayer.Tools Team
+        ';
+
+        wp_mail( $email, 'New Campaign Created', $html, [ 'Content-Type: text/html' ] );
+        return true;
+    }
 
 
     wpmu_signup_blog( $domain, $path, $campaign_name, $email, $email, $meta );
