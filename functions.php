@@ -401,11 +401,16 @@ The Prayer.Tools Team
         ';
 
         wp_mail( $email, 'New Campaign Created', $html, [ 'Content-Type: text/html' ] );
-        return true;
+        return [
+            'success' => true,
+            'campaign_url' => $url,
+        ];
     }
 
 
     wpmu_signup_blog( $domain, $path, $campaign_name, $email, $email, $meta );
 
-    return true;
+    return [
+        'success' => true,
+    ];
 }

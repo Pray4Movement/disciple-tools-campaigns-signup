@@ -245,8 +245,11 @@ $languages = [
             </div>
             <button
                 style="background-color: var(--primary-color);"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Create
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit">Create
                 Campaign
+                <span v-show="show_submit_spinner" class="inline-block mx-2" style="width: 1.5rem; vertical-align: middle; filter:invert(1)">
+                    <img class="dt-icon" src="<?php echo esc_html( get_template_directory_uri() . '/assets/images/spinner.svg' ) ?>"/>
+                </span>
             </button>
 
         </form>
@@ -314,6 +317,7 @@ get_footer();
         ramadan: ref(ramadan),
         prayer_fuel: ref(''),
         languages: ref(js_data.languages),
+        show_submit_spinner: ref(false)
       }
     },
     computed: {
@@ -350,6 +354,8 @@ get_footer();
         this.submit_error = 'Please select at least one language for your campaign and prayer fuel'
         return
       }
+      this.show_submit_spinner = true
+
 
       let data = {
         email: this.email,
@@ -374,6 +380,7 @@ get_footer();
         },
         body: JSON.stringify(data)
       }).then(status => {
+        this.show_submit_spinner = true
         if ( !status.ok ){
           return Promise.reject(status)
         }
