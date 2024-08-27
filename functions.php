@@ -363,7 +363,7 @@ function create_campaign( WP_REST_Request $request ){
 
     $result     = wpmu_validate_blog_signup( $campaign_url, $campaign_name );
     $domain     = $result['domain'];
-    $domain = str_replace( 'campaigns.', '', $domain );
+    $domain = str_replace( 'campaigns.prayer.tools', 'prayer.tools', $domain );
     $path       = $result['path'];
     $blogname   = $result['blogname'];
     $blog_title = $result['blog_title'];
@@ -388,7 +388,6 @@ function create_campaign( WP_REST_Request $request ){
         update_blog_option( $blog_id, 'pt_campaign', $meta );
         update_blog_option( $blog_id, 'p4m_porch_type_to_set_up', $meta['porch_type'] );
         $url = 'https://' . $domain . $path;
-        $url = str_replace( 'campaigns.', '', $url );
         $html = '
 Hi ' . ( $name ?: $email ) . ',
 

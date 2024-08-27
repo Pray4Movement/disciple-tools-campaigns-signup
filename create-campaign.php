@@ -385,6 +385,11 @@ get_footer();
           return Promise.reject(status)
         }
         this.view = 'success'
+        status.json().then(r=>{
+          if (r.campaign_url){
+            fetch(r.campaign_url)
+          }
+        })
       })
       .catch((error) => {
         error.json().then(r=>{
