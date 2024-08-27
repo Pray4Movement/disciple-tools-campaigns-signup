@@ -164,11 +164,12 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
     $meta = $args['options'];
     if ( isset( $meta['porch_type'] ) ){
         update_blog_option( $blog_id, 'p4m_porch_type_to_set_up', $meta['porch_type'] );
+        update_blog_option( $blog_id, 'pt_campaign', $meta );
     }
 
     $dt_tags = [ 'values' => [ [ 'value' => 'add_to_mailing_list_27' ] ] ]; //P4M Campaign Creator
     $steps_takes = [ 'values' => [ [ 'value' => 'P4M Campaign Creator' ] ] ];
-    if ( isset( $meta['dt_newsletter'] ) ){
+    if ( !empty( $meta['newsletter'] ) ){
         $dt_tags['values'][] = [ 'value' => 'add_to_mailing_list_23' ]; //P4M Newsletter
         $steps_takes['values'][] = [ 'value' => 'P4M Newsletter' ];
     }
@@ -322,3 +323,75 @@ add_filter( 'update_welcome_email', function( $welcome_email, $blog_id, $user_id
 
     return $welcome_email;
 }, 10, 6 );
+
+
+//register endpoint
+add_action( 'rest_api_init', function() {
+    register_rest_route( 'dt-campaigns/v1', 'create_campaign', [
+        'methods' => 'POST',
+        'callback' => 'create_campaign',
+        'permission_callback' => function() {
+            return true;
+        },
+    ] );
+} );
+function create_campaign( WP_REST_Request $request ){
+    $params = $request->get_params();
+    if ( empty( $params['email'] ) || empty( $params['campaign_name'] ) || empty( $params['campaign_url'] ) || empty( $params['start_date'] ) ){
+        return new WP_Error( 'missing_params', 'Missing required parameters', [ 'status' => 400 ] );
+    }
+
+    $email = $params['email'];
+    $name = $params['name'];
+    $campaign_name = $params['campaign_name'];
+    $campaign_url = $params['campaign_url'];
+    $start_date = $params['start_date'];
+    $end_date = $params['end_date'];
+
+    $meta = [
+        'porch_type' => empty( $end_date ) ? 'ongoing' : 'generic',
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+        'newsletter' => $params['newsletter'] ?? false,
+    ];
+
+    //user exists?
+    $user = get_user_by( 'email', $email );
+    $user_id = $user->ID ?? null;
+
+//    if ( empty( $user ) ){
+//        //create user
+//        $user_id = wp_create_user( $email, wp_generate_password(), $email );
+//    }
+
+    $user_result = wpmu_validate_user_signup( $email, $email );
+    $user_name   = $user_result['user_name'];
+    $user_email  = $user_result['user_email'];
+    $user_errors = $user_result['errors'];
+
+    if ( $user_errors->has_errors() ) {
+//        signup_user( $user_name, $user_email, $user_errors );
+//        return false;
+    }
+
+    $result     = wpmu_validate_blog_signup( $campaign_url, $campaign_name );
+    $domain     = $result['domain'];
+    $path       = $result['path'];
+    $blogname   = $result['blogname'];
+    $blog_title = $result['blog_title'];
+    $errors     = $result['errors'];
+
+    if ( $errors->has_errors() ) {
+        if ( $errors->get_error_code() === 'blogname' ){
+            return new WP_Error( 'blog_exists', 'The campaign url is already taken, please try another', [ 'status' => 400 ] );
+        }
+        return new WP_Error( 'blog_error', $errors->get_error_message(), [ 'status' => 400 ] );
+    }
+
+    //@todo create subsite without activating if user already existis
+
+
+    wpmu_signup_blog( $domain, $path, $campaign_name, $email, $email, $meta );
+
+    return true;
+}

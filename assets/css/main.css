@@ -242,12 +242,6 @@ button {
         font-size: 10px;
     }
 
-    h1 {
-        font-size: 4rem;
-        margin: 0;
-        margin-bottom: 2rem;
-    }
-
     .container {
         width: unset;
         max-width: unset;
@@ -259,7 +253,7 @@ button {
     }
 
     .two-col {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 
     .two-col > * {
