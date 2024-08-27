@@ -355,6 +355,9 @@ function create_campaign( WP_REST_Request $request ){
         'newsletter' => $params['newsletter'] ?? false,
         'languages' => $params['languages'] ?? [ 'en_US' ],
         'prayer_fuel' => $params['prayer_fuel'] ?? '',
+        'dt_prayer_site' => $params['network'] ?? '',
+        'dt_reason_for_subsite' => $params['location'] ?? '',
+        'dt_champion_name' => $params['name'] ?? '',
     ];
 
     //user exists?
