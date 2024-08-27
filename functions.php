@@ -383,7 +383,9 @@ function create_campaign( WP_REST_Request $request ){
      *
      */
     if ( !empty( $user ) ){
-        wpmu_create_blog( $domain, $path, $campaign_name, $user_id, $meta );
+        $blog_id = wpmu_create_blog( $domain, $path, $campaign_name, $user_id, $meta );
+        update_blog_option( $blog_id, 'pt_campaign', $meta );
+        update_blog_option( $blog_id, 'p4m_porch_type_to_set_up', $meta['porch_type'] );
         $url = 'https://' . $domain . $path;
         $html = '
 Hi ' . ( $name ?: $email ) . ',
