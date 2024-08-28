@@ -40,7 +40,8 @@ html {
 body {
     margin: 0;
     font-size: 1.6rem;
-    /*font-family: var(--font-serif);*/
+    /*font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;*/
+    /*font-family: NonBreakingSpaceOverride, "Hoefler Text", Garamond, "Times New Roman", serif;*/
     line-height: 1.5;
 
     color: var(--grey);
@@ -49,6 +50,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+/*@supports ( font-variation-settings: normal ) {*/
+
+/*    body {*/
+/*        font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;*/
+/*    }*/
+/*}*/
+
 
 /*h1 {*/
 /*    font-size: 4.8rem;*/
@@ -65,6 +73,29 @@ body {
 /*    font-family: var(--font-sans);*/
 /*    margin-bottom: 3rem;*/
 /*}*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+@supports ( font-variation-settings: normal ) {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+    {
+        font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+    }
+}
 
 img {
     width: 100%;

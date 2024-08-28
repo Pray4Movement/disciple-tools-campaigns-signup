@@ -96,9 +96,9 @@ $languages = [
 </style>
 <div id="app" class="w-auto bg-gray-50 max-w-5xl m-1 mb-20 md:mx-auto p-3 md:p-7 rounded-md shadow-md text-lg">
     <div v-if="view==='create'">
-        <div class="text-center text-2xl md:text-3xl">
+        <div class="text-center text-2xl md:text-3xl font-bold">
             <div>
-                <h1>Create Campaign</h1>
+                <h1 >Create Campaign</h1>
             </div>
         </div>
         <form ref="form" @submit.prevent="submit_form">
