@@ -28,7 +28,7 @@
 
             <br>
             <p>
-                Note: If you have already created a campaign in the past, please sign in and create a new campaign from the settings area.
+                Note: If you have already created a campaign in the past, please sign in and create a new campaign from the settings area. See <a href="https://prayer.tools/docs/ramadan-getting-started/#1-toc-title">instructions</a>
             </p>
         </div>
     </div>
