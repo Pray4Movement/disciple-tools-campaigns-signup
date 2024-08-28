@@ -372,10 +372,13 @@ function create_campaign( WP_REST_Request $request ){
     $blog_title = $result['blog_title'];
     $errors     = $result['errors'];
 
-    if ( $errors->has_errors() ) {
-        if ( $errors->get_error_code() === 'blogname' ){
-            return new WP_Error( 'blog_exists', 'The campaign url is already taken, please try another', [ 'status' => 400 ] );
-        }
+    global $wpdb;
+    $existing_sites = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->blogs} WHERE domain = %s AND path = %s", $domain, $path ), ARRAY_A );
+
+    if ( !empty( $existing_sites ) || ( $errors->has_errors() && $errors->get_error_code() === 'blogname' ) ){
+        return new WP_Error( 'blog_exists', 'The campaign url is already taken, please try another', [ 'status' => 400 ] );
+    }
+    if ( $errors->has_errors() ){
         return new WP_Error( 'blog_error', $errors->get_error_message(), [ 'status' => 400 ] );
     }
 
