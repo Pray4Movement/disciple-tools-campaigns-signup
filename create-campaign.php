@@ -142,6 +142,7 @@ $languages = [
             <h3 class="text-3xl font-bold my-7">
                 Campaign Details
             </h3>
+            <img class="max-w-lg mx-auto" src="<?php echo esc_html( get_template_directory_uri() . '/assets/images/campaign_name.png' ) ?>"/>
             <label class="font-bold text-gray-700 tracking-wide pb-7">
                 <span class="flex items-center gap-x-1 pb-2">
                     Campaign Name<span style="color:red"> *</span>
