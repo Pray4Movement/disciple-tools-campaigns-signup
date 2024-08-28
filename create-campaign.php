@@ -168,7 +168,7 @@ $languages = [
                         <!--</span>-->
                     </span>
                     <span class="help-text" style="display: block">
-                        This is the web address you will share and promote. We recommend examples like pray4france, pray4france-ramadan, france-ramadan, france-lent, france247, etc. Use a custom domain with <a href="https://prayer.tools/docs/hosting-options/">hosting options.</a>
+                        This is the web address you will share and promote. We recommend examples like pray4france, pray4france-ramadan, france-ramadan, france-lent, france247, etc. Use a custom domain with <a href="https://prayer.tools/docs/hosting-options/" target="_blank">hosting options.</a>
                     </span>
                     <input v-model="campaign_url" @blur="(e)=>handle_blur(e, 4)" style="width: auto;" type="text" placeholder="pray4france" required pattern="^[\d\w\-_]{4,}$">.prayer.tools
                     <span class="error">Subdomain must be at least 4 characters and cannot contain spaces</span>
@@ -197,7 +197,7 @@ $languages = [
                 <input v-model="pt_agreement" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree to use this prayer campaign tool in accordance with the <a href="https://prayer.tools/about/" target="_blank">vision and intent</a> of Prayer.Tools to mobilize extraordinary prayer for a specific people or place<span style="color:red"> *</span><br>
             </label>
             <label class="text-gray-700 tracking-wide">
-                <input v-model="pt_listing" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree that my prayer campaign can be listed on Prayer.Tools. <a href="https://prayer.tools/contact-us/">Contact Us</a> to request your campaign be excluded.<span style="color:red">*</span><br>
+                <input v-model="pt_listing" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree that my prayer campaign can be listed on Prayer.Tools. <a href="https://prayer.tools/contact-us/" target="_blank">Contact Us</a> to request your campaign be excluded.<span style="color:red">*</span><br>
             </label>
 
             <div v-if="ramadan">
@@ -222,7 +222,7 @@ $languages = [
 
                 <h4 class="text-lg font-bold">Languages</h4>
                 <p>
-                    Select which of the already translated languages you would like to use for your campaign. You can select multiple languages. Click <a href="https://prayer.tools/docs/campaign-settings/#language-settings">here</a> to find out how to add another language not on this list.
+                    Select which of the already translated languages you would like to use for your campaign. You can select multiple languages. Click <a href="https://prayer.tools/docs/campaign-settings/#language-settings" target="_blank">here</a> to find out how to add another language not on this list.
                 </p>
                 <div class="my-4">
                     <label class="m-0" v-for="language in languages" :key="language.code">
