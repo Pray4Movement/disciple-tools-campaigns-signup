@@ -195,7 +195,7 @@ $languages = [
                 <input v-model="pt_agreement" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree to use this prayer campaign tool in accordance with the <a href="https://prayer.tools/about/" target="_blank">vision and intent</a> of Prayer.Tools to mobilize extraordinary prayer for a specific people or place<span style="color:red"> *</span><br>
             </label>
             <label class="text-gray-700 tracking-wide">
-                <input v-model="pt_listing" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree that my prayer campaign can be listed on Prayer.Tools<span style="color:red"> *</span><br>
+                <input v-model="pt_listing" @blur="(e)=>handle_blur(e)" type="checkbox" required style="width: 1rem; height: 1rem; margin-right: 1rem;">I agree that my prayer campaign can be listed on Prayer.Tools. <a href="https://prayer.tools/contact-us/">Contact Us</a> to request your campaign be excluded.<span style="color:red">*</span><br>
             </label>
 
             <div v-if="ramadan">
