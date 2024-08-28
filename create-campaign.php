@@ -160,13 +160,13 @@ $languages = [
             <div class="relative pb-7">
                 <label class="font-bold text-gray-700 tracking-wide">
                     <span class="flex items-center gap-x-1 pb-2">
-                        Campaign Url<span style="color:red"> *</span>
+                        Campaign URL<span style="color:red"> *</span>
                         <!--<span class="tooltip">-->
                         <!--    <img class="dt-icon w-4 h-4 inline-block" src="--><?php //echo esc_html( get_template_directory_uri() . '/assets/images/help.svg' ) ?><!--"/>-->
                         <!--</span>-->
                     </span>
                     <span class="help-text" style="display: block">
-                        This is the url you will share to your prayer network. We recommend domains like pray4france, pray4france-ramadan, france-ramadan, france-lent, france247, etc. Use a custom domain with <a href="https://prayer.tools/docs/hosting-options/">hosting options.</a>
+                        This is the web address you will share and promote. We recommend examples like pray4france, pray4france-ramadan, france-ramadan, france-lent, france247, etc. Use a custom domain with <a href="https://prayer.tools/docs/hosting-options/">hosting options.</a>
                     </span>
                     <input v-model="campaign_url" @blur="(e)=>handle_blur(e, 4)" style="width: auto;" type="text" placeholder="pray4france" required pattern="^[\d\w\-_]{4,}$">.prayer.tools
                     <span class="error">Subdomain must be at least 4 characters and cannot contain spaces</span>
@@ -204,11 +204,11 @@ $languages = [
                 </h3>
                 <h4 class="text-lg font-bold">Prayer Fuel</h4>
                 <p>
-                    Each campaign needs prayer fuel for the users to use to pray every day. Ramadan prayer fuel is provided in 11 languages. We intend for you to improve and customize this prayer fuel, but it can be used as it is. Let us know which option you plan on choosing:
+                    We develop 30 days of Ramadan prayer fuel that is relevant for the Muslim world. This year it will be translated into 11 languages. We recommend you improve and customize this default prayer fuel, but it can be used as it is. Let us know which option you plan on choosing:
                 </p>
                 <div class="my-4">
                     <label class="m-0">
-                        <input type="radio" v-model="prayer_fuel" name="prayer_fuel" value="starter" required>I will use the default prayer fuel
+                        <input type="radio" v-model="prayer_fuel" name="prayer_fuel" value="starter" required>I will use the default prayer fuel as is
                     </label>
                     <label class="m-0">
                         <input type="radio" v-model="prayer_fuel" name="prayer_fuel" value="customize">I will use the default prayer fuel and customize it
@@ -220,7 +220,7 @@ $languages = [
 
                 <h4 class="text-lg font-bold">Languages</h4>
                 <p>
-                    Select which of the installed languages you would like to use for your campaign. You can select multiple languages.
+                    Select which of the already translated languages you would like to use for your campaign. You can select multiple languages.
                 </p>
                 <div class="my-4">
                     <label class="m-0" v-for="language in languages" :key="language.code">
