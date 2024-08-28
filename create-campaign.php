@@ -116,23 +116,11 @@ $languages = [
                 <!--        <img class="dt-icon w-4 h-4 inline-block" src="--><?php //echo esc_html( get_template_directory_uri() . '/assets/images/help.svg' ) ?><!--"/>-->
                 <!--    </div>-->
                 <!--</span>-->
-                <input @blur="(e)=>handle_blur(e)" v-model="name" :class="{'valid-input': name?.length > 4}" type="text" placeholder="Ahmed">
+                <input @blur="(e)=>handle_blur(e)" v-model="name" :class="{'valid-input': name?.length > 4}" type="text" placeholder="Your Name">
                 <!--<div class="help-text" v-show="showhelp.name">-->
                 <!--    Your name is optional but helps us to personalize your experience.-->
                 <!--    <br>Your answer is kept private.-->
                 <!--</div>-->
-            </label>
-            <label class="font-bold text-gray-700 tracking-wide">
-                    Do you have an existing prayer network? If so, what is the link? <span class="text-gray-400 text-sm">Answer is kept private</span>
-                <!--<span class="flex items-baseline gap-x-1 pb-2">-->
-                <!--    <span class="trigger-help-text" @click="show_help('network')">-->
-                <!--        <img class="dt-icon w-4 h-4 inline-block" src="--><?php //echo esc_html( get_template_directory_uri() . '/assets/images/help.svg' ) ?><!--"/>-->
-                <!--    </span>-->
-                <!--</span>-->
-                <!--<div class="help-text" v-show="showhelp.network">-->
-                <!--    Your answer is kept private.-->
-                <!--</div>-->
-                <input v-model="network" @blur="(e)=>handle_blur(e)" type="text" placeholder="https://network.com">
             </label>
             <label class="font-bold text-gray-700 tracking-wide">
                     What is your target location or people group?  <span class="text-gray-400 text-sm">Answer is kept private</span>
@@ -302,7 +290,6 @@ get_footer();
         message,
         email: ref(''),
         name: ref(''),
-        network: ref(''),
         campaign_name: ref(''),
         campaign_url: ref(''),
         start_date,
@@ -360,7 +347,6 @@ get_footer();
       let data = {
         email: this.email,
         name: this.name,
-        network: this.network,
         campaign_name: this.campaign_name,
         campaign_url: this.campaign_url,
         start_date: this.start_date,

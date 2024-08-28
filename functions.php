@@ -141,9 +141,9 @@ function dt_add_signup_meta( $meta ){
     if ( isset( $_POST['dt_champion_name'] ) ) {
         $meta['dt_champion_name'] = sanitize_text_field( wp_unslash( $_POST['dt_champion_name'] ) );
     }
-    if ( isset( $_POST['dt_prayer_site'] ) ) {
-        $meta['dt_prayer_site'] = sanitize_text_field( wp_unslash( $_POST['dt_prayer_site'] ) );
-    }
+//    if ( isset( $_POST['dt_prayer_site'] ) ) {
+//        $meta['dt_prayer_site'] = sanitize_text_field( wp_unslash( $_POST['dt_prayer_site'] ) );
+//    }
     if ( isset( $_POST['dt_reason_for_subsite'] ) ) {
         $meta['dt_reason_for_subsite'] = sanitize_text_field( wp_unslash( $_POST['dt_reason_for_subsite'] ) );
     }
@@ -213,7 +213,7 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
             'email' => $email,
         ],
         'instance_links' => $blog->siteurl,
-        'dt_prayer_site' => $meta['dt_prayer_site'],
+        //'dt_prayer_site' => $meta['dt_prayer_site'],
         'dt_reason_for_subsite' => $meta['dt_reason_for_subsite'],
         'source' => 'p4m_campaign_create',
         'tags' => $dt_tags,
@@ -355,7 +355,6 @@ function create_campaign( WP_REST_Request $request ){
         'newsletter' => $params['newsletter'] ?? false,
         'languages' => $params['languages'] ?? [ 'en_US' ],
         'prayer_fuel' => $params['prayer_fuel'] ?? '',
-        'dt_prayer_site' => $params['network'] ?? '',
         'dt_reason_for_subsite' => $params['location'] ?? '',
         'dt_champion_name' => $params['name'] ?? '',
     ];
