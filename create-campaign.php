@@ -9,18 +9,20 @@ wp_enqueue_style( 'tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/
 get_header();
 
 $languages = [
-    [ 'lang' => 'en_US', 'value' => 'English' ],
+    [ 'lang' => 'ar', 'value' => 'Arabic', 'fuel' => true ],
+    [ 'lang' => 'zh_Hans', 'value' => 'Chinese', 'fuel' => true ],
+    [ 'lang' => 'en_US', 'value' => 'English', 'fuel' => true ],
+    [ 'lang' => 'fr_FR', 'value' => 'French', 'fuel' => true ],
+    [ 'lang' => 'de_DE', 'value' => 'German', 'fuel' => false ],
+    [ 'lang' => 'hi_IN', 'value' => 'Hindi', 'fuel' => true ],
+    [ 'lang' => 'id_ID', 'value' => 'Indonesian' ],
     [ 'lang' => 'it_IT', 'value' => 'Italian' ],
-    [ 'lang' => 'es_ES', 'value' => 'Spanish' ],
-    [ 'lang' => 'pt_BR', 'value' => 'Portuguese' ],
-    [ 'lang' => 'fr_FR', 'value' => 'French' ],
-    [ 'lang' => 'ar', 'value' => 'Arabic' ],
-    [ 'lang' => 'te', 'value' => 'Telugu' ],
-    [ 'lang' => 'hi_IN', 'value' => 'Hindi' ],
-    [ 'lang' => 'kn', 'value' => 'Kannada' ],
-    [ 'lang' => 'ta', 'value' => 'Tamil' ],
-    [ 'lang' => 'ur', 'value' => 'Urdu' ],
-    [ 'lang' => 'zh_Hans', 'value' => 'Chinese' ],
+    [ 'lang' => 'kn', 'value' => 'Kannada', 'fuel' => true ],
+    [ 'lang' => 'pt_BR', 'value' => 'Portuguese', 'fuel' => true ],
+    [ 'lang' => 'es_ES', 'value' => 'Spanish', 'fuel' => true ],
+    [ 'lang' => 'ta', 'value' => 'Tamil', 'fuel' => true ],
+    [ 'lang' => 'te', 'value' => 'Telugu', 'fuel' => true ],
+    [ 'lang' => 'ur', 'value' => 'Urdu', 'fuel' => true ],
 ]
 
 
@@ -220,11 +222,11 @@ $languages = [
 
                 <h4 class="text-lg font-bold">Languages</h4>
                 <p>
-                    Select which of the already translated languages you would like to use for your campaign. You can select multiple languages.
+                    Select which of the already translated languages you would like to use for your campaign. You can select multiple languages. Click <a href="https://prayer.tools/docs/campaign-settings/#language-settings">here</a> to find out how to add another language not on this list.
                 </p>
                 <div class="my-4">
                     <label class="m-0" v-for="language in languages" :key="language.code">
-                        <input type="checkbox" v-model="language.selected" name="prayer_fuel" :value="language.code" :id="language.code">{{language.value}}
+                        <input type="checkbox" v-model="language.selected" name="prayer_fuel" :value="language.code" :id="language.code">{{language.value}} <span v-if="!language.fuel">- no starter fuel planned</span>
                     </label>
                 </div>
             </div>
