@@ -20,7 +20,6 @@ add_action( 'wp_enqueue_scripts', function() {
     wp_enqueue_style( 'reset', trailingslashit( get_template_directory_uri() ) . 'assets/css/reset.css', [ 'normalize' ], filemtime( trailingslashit( get_template_directory() ) . 'assets/css/reset.css' ) );
     wp_enqueue_style( 'normalize', trailingslashit( get_template_directory_uri() ) . 'assets/css/normalize.css', [], filemtime( trailingslashit( get_template_directory() ) . 'assets/css/normalize.css' ) );
     wp_enqueue_style( 'main', trailingslashit( get_template_directory_uri() ) . 'assets/css/main.css', [ 'normalize', 'reset' ], filemtime( trailingslashit( get_template_directory() ) . 'assets/css/main.css' ) );
-
 } );
 
 
@@ -233,10 +232,7 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
             update_blog_option( $blog_id, 'p4m_linked_crm_contact', $result['contact_id'] );
         }
     }
-
-
     return;
-
 }, 10, 2 );
 
 /**
@@ -280,7 +276,6 @@ add_action( 'before_signup_form', function() : void {
         //phpcs:ignore
         $domain = substr( $domain, strlen( $needle ) );
     }
-
 } );
 
 add_action( 'signup_hidden_fields', function ( $stage ){
@@ -373,12 +368,12 @@ function create_campaign( WP_REST_Request $request ){
 
     global $wpdb;
     $existing_sites = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->blogs} WHERE domain = %s AND path = %s", $domain, $path ), ARRAY_A );
-
-    if ( !empty( $existing_sites ) || ( $errors->has_errors() && $errors->get_error_code() === 'blogname' ) ){
+    if ( !empty( $existing_sites ) ){
         return new WP_Error( 'blog_exists', 'The campaign url is already taken, please try another', [ 'status' => 400 ] );
     }
-    if ( $errors->has_errors() ){
-        return new WP_Error( 'blog_error', $errors->get_error_message(), [ 'status' => 400 ] );
+    //url format
+    if ( !preg_match( '|^([a-z0-9-])+$|', $campaign_url ) ) {
+        return new WP_Error( 'blogname_error', 'Campaign URL: Only lowercase letters (a-z) and numbers are allowed.', [ 'status' => 400 ] );
     }
 
 

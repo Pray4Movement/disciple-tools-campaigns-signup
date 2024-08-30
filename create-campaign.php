@@ -351,7 +351,7 @@ get_footer();
         email: this.email,
         name: this.name,
         campaign_name: this.campaign_name,
-        campaign_url: this.campaign_url,
+        campaign_url: this.campaign_url.toLowerCase(),
         start_date: this.start_date,
         end_date: this.end_date,
         nonce: js_data.nonce,
@@ -369,7 +369,7 @@ get_footer();
         },
         body: JSON.stringify(data)
       }).then(status => {
-        this.show_submit_spinner = true
+        this.show_submit_spinner = false
         if ( !status.ok ){
           return Promise.reject(status)
         }
