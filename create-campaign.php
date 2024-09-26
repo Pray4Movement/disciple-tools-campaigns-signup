@@ -9,9 +9,9 @@ wp_enqueue_style( 'tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/
 get_header();
 
 $languages = [
+    [ 'lang' => 'en_US', 'value' => 'English', 'fuel' => true, 'selected' => true ],
     [ 'lang' => 'ar', 'value' => 'Arabic', 'fuel' => true ],
     [ 'lang' => 'zh_Hans', 'value' => 'Chinese', 'fuel' => true ],
-    [ 'lang' => 'en_US', 'value' => 'English', 'fuel' => true ],
     [ 'lang' => 'fr_FR', 'value' => 'French', 'fuel' => true ],
     [ 'lang' => 'de_DE', 'value' => 'German', 'fuel' => false ],
     [ 'lang' => 'hi_IN', 'value' => 'Hindi', 'fuel' => true ],
