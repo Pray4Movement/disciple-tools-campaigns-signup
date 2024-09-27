@@ -253,7 +253,7 @@ $languages = [
         </div>
         <div class="text-center">
             <p class="text-lg">
-                Your campaign has been created. You will receive an email with instructions on how to access your campaign.
+                Your campaign has been created. You will receive an email at <strong>{{this.email}}</strong> with instructions on how to access your campaign.
             </p>
         </div>
     </div>
