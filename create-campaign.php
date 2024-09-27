@@ -360,6 +360,7 @@ get_footer();
         pt_agreement: this.pt_agreement,
         pt_listing: this.pt_listing,
         prayer_fuel: this.prayer_fuel,
+        porch_type: this.ramadan ? 'ramadan-porch' : undefined,
         languages
       }
       fetch(js_data.rest + 'dt-campaigns/v1/create_campaign', {
