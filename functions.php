@@ -83,7 +83,11 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
         'source' => 'p4m_campaign_create',
         'tags' => $dt_tags,
         'steps_taken' => $steps_takes,
+        'notes' => []
     ];
+    if ( !empty( $meta['prayer_fuel'] ) ){
+        $fields['notes'][] = 'Selected Prayer Fuel' . $meta['prayer_fuel'];
+    }
     $args = [
         'method' => 'POST',
         'body' => $fields,
