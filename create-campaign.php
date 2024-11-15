@@ -5,6 +5,8 @@
 wp_enqueue_script( 'vuejs', 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.38/vue.global.prod.min.js', [], null, true );
 //add tailwindcss
 wp_enqueue_style( 'tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css', [], null, 'all' );
+//add cloudflare turnstile
+wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], '0', [ 'strategy' => 'defer' ] );
 
 get_header();
 
@@ -23,8 +25,9 @@ $languages = [
     [ 'lang' => 'ta', 'value' => 'Tamil', 'fuel' => true ],
     [ 'lang' => 'te', 'value' => 'Telugu', 'fuel' => true ],
     [ 'lang' => 'ur', 'value' => 'Urdu', 'fuel' => true ],
-]
+];
 
+$cloudflare_site_key = get_site_option( 'dt_cloudflare_site_key', '' );
 
 
 ?>
@@ -231,6 +234,13 @@ $languages = [
                 </div>
             </div>
 
+            <div
+                class="cf-turnstile"
+                data-sitekey="<?php echo esc_html( $cloudflare_site_key ); ?>"
+                data-theme="light"
+                style="margin-top:1em;"
+            ></div>
+
             <div>
                 <span class="error" style="display: block">{{submit_error}}</span>
             </div>
@@ -344,8 +354,9 @@ get_footer();
         this.submit_error = 'Please select at least one language for your campaign and prayer fuel'
         return
       }
-      this.show_submit_spinner = true
+      this.show_submit_spinner = true;
 
+      const cf_token = document.getElementsByName("cf-turnstile-response")[0]?.value;
 
       let data = {
         email: this.email,
@@ -361,7 +372,8 @@ get_footer();
         pt_listing: this.pt_listing,
         prayer_fuel: this.prayer_fuel,
         porch_type: this.ramadan ? 'ramadan-porch' : undefined,
-        languages
+        languages,
+        cf_token,
       }
       fetch(js_data.rest + 'dt-campaigns/v1/create_campaign', {
         method: 'POST',

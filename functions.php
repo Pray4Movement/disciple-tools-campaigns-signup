@@ -178,6 +178,36 @@ function create_campaign( WP_REST_Request $request ){
         return new WP_Error( 'missing_params', 'Missing required parameters', [ 'status' => 400 ] );
     }
 
+    $dt_cloudflare_site_key = get_site_option( 'dt_cloudflare_site_key', '' );
+    $dt_cloudflare_secret_key = get_site_option( 'dt_cloudflare_secret_key', '' );
+
+    if ( empty( $dt_cloudflare_secret_key ) || empty( $dt_cloudflare_site_key ) ){
+        return new WP_Error( 'create_campaign', 'Internal Form Error', [ 'status' => 500 ] );
+    }
+
+    $cf_token = $params['cf_token'] ?? '';
+    if ( empty( $cf_token ) ){
+        return new WP_Error( __METHOD__, 'Missing Cloudflare Verification', [ 'status' => 400 ] );
+    }
+
+    $ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+    $url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+    $response = wp_remote_post( $url, [
+        'body' => [
+            'secret' => $dt_cloudflare_secret_key,
+            'response' => $cf_token,
+            'remoteip' => $ip,
+        ],
+    ] );
+
+    if ( is_wp_error( $response ) ) {
+        return new WP_Error( 'cf_token', 'Invalid token', [ 'status' => 400 ] );
+    }
+    $response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+    if ( empty( $response_body['success'] ) ){
+        return new WP_Error( 'cf_token', 'Invalid token', [ 'status' => 400 ] );
+    }
+
     $email = $params['email'];
     $name = $params['name'];
     $campaign_name = $params['campaign_name'];
