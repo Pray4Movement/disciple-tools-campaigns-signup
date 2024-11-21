@@ -233,7 +233,13 @@ function create_campaign( WP_REST_Request $request ){
 
     $result     = wpmu_validate_blog_signup( $campaign_url, $campaign_name );
     $domain     = $result['domain'];
-    $domain = str_replace( 'campaigns.prayer.tools', 'prayer.tools', $domain );
+    //get network url
+
+//    $domain = str_replace( 'campaigns.prayer.tools', 'prayer.tools', $domain );
+//    $domain = str_replace( 'https', '', $domain );
+//    $domain = str_replace( 'http', '', $domain );
+    $domain = 'prayer.tools';
+
     $path       = $result['path'];
     $blogname   = $result['blogname'];
     $blog_title = $result['blog_title'];
