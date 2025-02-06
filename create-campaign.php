@@ -6,7 +6,7 @@ wp_enqueue_script( 'vuejs', 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.38/v
 //add tailwindcss
 wp_enqueue_style( 'tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css', [], null, 'all' );
 //add cloudflare turnstile
-wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], '0', [ 'strategy' => 'defer' ] );
+wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], null, [ 'strategy' => 'defer' ] );
 
 get_header();
 
