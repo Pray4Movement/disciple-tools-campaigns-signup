@@ -39,9 +39,9 @@ add_action( 'wp_initialize_site', function( \WP_Site $new_site, array $args ) : 
         $steps_takes['values'][] = [ 'value' => 'P4M Newsletter' ];
     }
     if ( isset( $meta['porch_type'] ) && $meta['porch_type'] === 'ramadan-porch' ){
-        $dt_tags['values'][] = [ 'value' => 'add_to_mailing_list_38' ]; // Ramadan 2025
+        $dt_tags['values'][] = [ 'value' => 'add_to_mailing_list_44' ]; // Ramadan 2026 Champion
         $dt_tags['values'][] = [ 'value' => 'add_to_mailing_list_30' ]; // Ramadan Champion
-        $dt_tags['values'][] = [ 'value' => 'Ramadan 2025 Champion' ]; // Ramadan 202* Champion
+        $dt_tags['values'][] = [ 'value' => 'Ramadan 2026 Champion' ]; // Ramadan 202* Champion
     }
 
     $token = get_option( 'crm_link_token' );
