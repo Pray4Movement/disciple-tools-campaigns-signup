@@ -372,6 +372,7 @@ get_footer();
         pt_listing: this.pt_listing,
         prayer_fuel: this.prayer_fuel,
         porch_type: this.ramadan ? 'ramadan-porch' : undefined,
+        campaign_goal: this.ramadan ? 'quantity' : undefined,
         languages,
         cf_token,
       }
