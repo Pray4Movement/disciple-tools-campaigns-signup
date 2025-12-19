@@ -225,6 +225,7 @@ function create_campaign( WP_REST_Request $request ){
         'prayer_fuel' => $params['prayer_fuel'] ?? '',
         'dt_reason_for_subsite' => $params['location'] ?? '',
         'dt_champion_name' => $params['name'] ?? '',
+        'campaign_goal' => $params['campaign_goal'] ?? '',
     ];
 
     //user exists?
