@@ -13,18 +13,18 @@ get_header();
 $languages = [
     [ 'lang' => 'en_US', 'value' => 'English', 'fuel' => true, 'selected' => true ],
     [ 'lang' => 'ar', 'value' => 'Arabic', 'fuel' => true ],
-    [ 'lang' => 'zh_Hans', 'value' => 'Chinese', 'fuel' => true ],
+    [ 'lang' => 'zh_Hans', 'value' => 'Chinese', 'fuel' => false ],
     [ 'lang' => 'fr_FR', 'value' => 'French', 'fuel' => true ],
     [ 'lang' => 'de_DE', 'value' => 'German', 'fuel' => false ],
-    [ 'lang' => 'hi_IN', 'value' => 'Hindi', 'fuel' => true ],
-    [ 'lang' => 'id_ID', 'value' => 'Indonesian' ],
-    [ 'lang' => 'it_IT', 'value' => 'Italian' ],
-    [ 'lang' => 'kn', 'value' => 'Kannada', 'fuel' => true ],
+    [ 'lang' => 'hi_IN', 'value' => 'Hindi', 'fuel' => false ],
+    [ 'lang' => 'id_ID', 'value' => 'Indonesian', 'fuel' => false ],
+    [ 'lang' => 'it_IT', 'value' => 'Italian', 'fuel' => false ],
+    [ 'lang' => 'kn', 'value' => 'Kannada', 'fuel' => false ],
     [ 'lang' => 'pt_BR', 'value' => 'Portuguese', 'fuel' => true ],
     [ 'lang' => 'es_ES', 'value' => 'Spanish', 'fuel' => true ],
-    [ 'lang' => 'ta', 'value' => 'Tamil', 'fuel' => true ],
-    [ 'lang' => 'te', 'value' => 'Telugu', 'fuel' => true ],
-    [ 'lang' => 'ur', 'value' => 'Urdu', 'fuel' => true ],
+    [ 'lang' => 'ta', 'value' => 'Tamil', 'fuel' => false ],
+    [ 'lang' => 'te', 'value' => 'Telugu', 'fuel' => false ],
+    [ 'lang' => 'ur', 'value' => 'Urdu', 'fuel' => false ],
 ];
 
 $cloudflare_site_key = get_site_option( 'dt_cloudflare_site_key', '' );
